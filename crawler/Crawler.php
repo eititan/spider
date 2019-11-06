@@ -1,32 +1,42 @@
 <?php
 
-namespace App\Crawl;
+namespace App\Crawler;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
-use App\Crawl\PageParser;
+use App\Crawler\PageParser;
 
 /**
  * Takes in the initial url and starts crawl
  */
 
 class Crawler {
-
+    
+    /**
+     * @var String
+     */
     private $url;
 
+    /**
+     * set the delay between http requests
+     *
+     * @var integer
+     */
     private $delayBetweedRequests = 1;
 
     /**
-     * Varible for max depth for search
+     * max depth desired for search
      *
      * @var int
      */
     private $maxDepth;
 
-    private $response;
-
-    private $body;
+    /**
+     * Array of PageParser objects
+     *
+     * @var array
+     */
     private $crawledPages;
 
     public function __construct(String $crawlUrl) {
@@ -37,7 +47,7 @@ class Crawler {
     /**
      * @param int $delay The delay in milliseconds.
      *
-     * @return 
+     * @return int
      */
     private function setDelayBetweenRequests(int $delay)
     {
@@ -55,13 +65,5 @@ class Crawler {
         $page = new PageParser($this->response);
 
     }
-
-    public function getResponse(){
-        return $this->response;
-    }
-    public function getResponseBody(){
-        return $this->body;
-    }
-
     
 }

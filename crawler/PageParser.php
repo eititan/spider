@@ -1,10 +1,7 @@
 <?php 
 
-namespace App\Crawl;
+namespace App\Crawler;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
 class PageParser {

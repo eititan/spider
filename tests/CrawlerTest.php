@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use PHPUnit\Framework\TestCase;
-use App\crawl\Crawler;
+use App\crawler\Crawler;
 
 class CrawlerTest extends TestCase
 {
