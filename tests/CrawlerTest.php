@@ -22,7 +22,7 @@ class CrawlerTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->crawler = new Crawler("google.com");
+        $this->crawler = new Crawler("https://google.com");
     }
 
     /**
@@ -37,5 +37,5 @@ class CrawlerTest extends TestCase
         // arrange & act & assert
         $this->assertTrue(true);
     }
-    
+
 }

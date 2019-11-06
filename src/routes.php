@@ -2,6 +2,7 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\crawl\Crawler;
 
 // Routes
 $app->get('/', function (Request $request, Response $response, array $args) use($app){
@@ -11,7 +12,10 @@ $app->get('/', function (Request $request, Response $response, array $args) use(
 //posting to chat from post.phtml
 $app->post('/', function (Request $request, Response $response, array $args) use($app){
     $data = $request->getParsedBody();
-    echo $data['url'];
+    $_SESSION['url_searched'] = $data['url'];
+
+    $crawler = new Crawler($data['url']);
+    //echo($crawler->getResponseBody());
 
     return $this->renderer->render($response, 'index.phtml', ['data'=>$data]);
 })->setName("post-chat");

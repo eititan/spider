@@ -62,7 +62,7 @@ class CrawlerQueueTest extends TestCase
     }
 
      /**
-     * Tests if is empty after enqueue'ing
+     * Tests if is empty after enqueue'ing 3 strings
      * @return   void
      */
     public function testEnqueue(): void
@@ -77,7 +77,7 @@ class CrawlerQueueTest extends TestCase
     }
 
     /**
-     * Tests if is empty after enqueue'ing
+     * Tests if dequeue is properly working
      * @return   void
      */
     public function testDequeue(): void
@@ -96,7 +96,7 @@ class CrawlerQueueTest extends TestCase
     }
 
      /**
-     * Tests if is empty after enqueue'ing
+     * Tests if queue is in working first-in-first-out order
      * @return   void
      */
     public function testFIFO(): void

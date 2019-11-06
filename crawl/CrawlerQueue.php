@@ -2,6 +2,11 @@
 
 namespace App\Crawl;
 
+/**
+ * Queue that contains future URL 
+ * to be requested and exhausted
+ */
+
 class Element{
   public $value;
   public $next;
@@ -27,7 +32,6 @@ class CrawlerQueue{
   /** 
     * Insert element at the back of queue
     * @param $value
-    * public function enqueue($value){} //stub
     */
   public function enqueue($value){
      $oldBack = $this->back;
@@ -43,7 +47,6 @@ class CrawlerQueue{
   /**
     * Remove element from the front of queue
     * @return $value
-    * public function dequeue(){ return 0; } //stub
     */ 
   public function dequeue(){
     if($this->isEmpty()){

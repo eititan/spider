@@ -26,6 +26,10 @@ require __DIR__ . '/../src/dependencies.php';
 // Register routes
 require __DIR__ . '/../src/routes.php';
 
+// Register routes
+require __DIR__ . '/../crawl/Crawler.php';
+require __DIR__ . '/../crawl/CrawlerQueue.php';
+require __DIR__ . '/../crawl/PageParser.php';
 
 
 //include models
