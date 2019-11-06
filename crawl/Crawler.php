@@ -5,9 +5,16 @@ namespace App\Crawl;
 /**
  * Big ol todo
  */
-class Crawl {
 
+class Crawler {
 
+    private $url;
+
+    public function __construct(String $crawlUrl) {
+        $this->url = $crawlUrl;
+    }
+
+    
 
     
 }

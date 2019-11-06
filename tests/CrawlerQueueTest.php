@@ -38,7 +38,6 @@ class CrawlerQueueTest extends TestCase
         $this->assertTrue(true);
     }
 
-    
     /**
      * Tests if queue is empty works
      * @return   void
