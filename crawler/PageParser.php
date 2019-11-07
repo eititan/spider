@@ -12,6 +12,7 @@ class PageParser {
     private $text;
     private $statusCode;
     private $links;
+    private $numLinks;
     private $dom;
     
     public function __construct(Response $response, String $url) {
@@ -32,16 +33,13 @@ class PageParser {
 
         if($this->title->length > 0){
             $this->title = $this->title->item(0)->textContent;
-            //echo $this->title;
         }
     }
 
     private function parseBodyForText(){
         $this->dom->loadHTML($this->rawBody);
         $tags = $this->dom->getElementsByTagName("body");
-        $this->text = $tags->item(0)->textContent;
-
-        // echo $this->text;
+        $this->text = substr($tags->item(0)->textContent, 0, 256);
     }
 
     private function parseBodyForURLs(){
@@ -55,9 +53,12 @@ class PageParser {
         }
         libxml_use_internal_errors($internalErrors);
 
-        // $links = $this->dom->getElementsByTagName('a');
-        // $numLinks = $links->length;
-        // echo $numLinks;
+        $links = $this->dom->getElementsByTagName('a');
+        $this->numLinks = $links->length;
+    }
+
+    public function getUrl(){
+        return $this->url;
     }
 
     public function getTitle(){
@@ -65,11 +66,15 @@ class PageParser {
     }
 
     public function getBody(){
-        return $this->body;
+        return $this->text;
     }
 
     public function getLinks(){
         return $this->links;
+    }
+
+    public function getNumOfLinks(){
+        return $this->numLinks;
     }
 
     public function getStatusCode(){

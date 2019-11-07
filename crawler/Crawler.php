@@ -13,11 +13,6 @@ use App\Crawler\CrawlerQueue;
  */
 
 class Crawler {
-    
-    /**
-     * @var String
-     */
-    private $startUrl;
 
     /**
      * set the delay between http requests
@@ -31,7 +26,7 @@ class Crawler {
      *
      * @var int
      */
-    private $maxDepth = 1;
+    private $maxDepth = 5;
 
     /**
      * Array of PageParser objects
@@ -47,10 +42,9 @@ class Crawler {
      */
     private $queue;
 
-    public function __construct(String $url) {
+    public function __construct(String $startUrl) {
         $this->queue = new CrawlerQueue();
-        $this->startUrl = $url;
-        $this->queue->enqueue($url);
+        $this->queue->enqueue($startUrl);
         $this->spinWeb();
     }
 
@@ -58,6 +52,10 @@ class Crawler {
         $client = new Client();
 
         for ($i=0; $i < $this->maxDepth; $i++) { 
+            if($this->queue->isEmpty()){
+                return;
+            }
+            
             $url = $this->queue->dequeue();
             $this->response = $client->get($url);
             $page = new PageParser($this->response, $url);
@@ -67,14 +65,10 @@ class Crawler {
             foreach($links as $link){
                 $this->queue->enqueue($link);
             }
-
         }
-
-        //print_r($this->crawledPages);
-        
     }
 
-      /**
+    /**
      * @param int $delay The delay in milliseconds.
      *
      * @return int
@@ -84,12 +78,12 @@ class Crawler {
         $this->delayBetweenRequests = ($delay * 1000);
     }
 
-    private function getDelayBetweenRequests(int $delay)
+    public function getDelayBetweenRequests(int $delay)
     {
         return $this->delayBetweenRequests;
     }
 
-    private function getCrawledPages()
+    public function getCrawledPages()
     {
         return $this->crawledPages;
     }
