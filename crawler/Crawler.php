@@ -15,18 +15,11 @@ use App\Crawler\CrawlerQueue;
 class Crawler {
 
     /**
-     * set the delay between http requests
-     *
-     * @var integer
-     */
-    private $delayBetweedRequests = 1;
-
-    /**
      * max depth desired for search
      *
      * @var int
      */
-    private $maxDepth = 5;
+    private $maxDepth = 2;
 
     /**
      * Array of PageParser objects
@@ -55,32 +48,30 @@ class Crawler {
             if($this->queue->isEmpty()){
                 return;
             }
-            
+
             $url = $this->queue->dequeue();
             $this->response = $client->get($url);
             $page = new PageParser($this->response, $url);
             $this->crawledPages[] = $page;
 
             $links = $page->getLinks();
-            foreach($links as $link){
-                $this->queue->enqueue($link);
+            if (is_array($links) || is_object($links)){
+                foreach($links as $link){
+                    $this->queue->enqueue($link);
+                }
             }
+            
         }
     }
 
-    /**
-     * @param int $delay The delay in milliseconds.
-     *
-     * @return int
-     */
-    private function setDelayBetweenRequests(int $delay)
+    public function setMaxDepth(int $newDepth)
     {
-        $this->delayBetweenRequests = ($delay * 1000);
+        $this->maxDepth = $newDepth;
     }
 
-    public function getDelayBetweenRequests(int $delay)
+    public function getMaxDepth()
     {
-        return $this->delayBetweenRequests;
+        return $this->maxDepth;
     }
 
     public function getCrawledPages()

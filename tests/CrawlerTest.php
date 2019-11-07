@@ -13,6 +13,7 @@ namespace App\Tests;
 
 use PHPUnit\Framework\TestCase;
 use App\crawler\Crawler;
+use App\crawler\PageParser;
 
 class CrawlerTest extends TestCase
 {
@@ -37,5 +38,64 @@ class CrawlerTest extends TestCase
         // arrange & act & assert
         $this->assertTrue(true);
     }
+
+    /**
+     * Tests if getting max depth works
+     * @return   void
+     */
+    public function testGetMaxDepth(): void
+    {
+        //2 is default min
+        $expected = 2;
+        $actual = $this->crawler->getMaxDepth();
+        $this->assertEquals($expected, $actual,  "actual value is not equals to expected");
+    }
+
+    /**
+     * Tests setting max depth works
+     * @return   void
+     */
+    public function testSetMaxDepth(): void
+    {
+        $this->crawler->setMaxDepth(13);
+        $expected = 13;
+        $actual = $this->crawler->getMaxDepth();
+        $this->assertEquals($expected, $actual,  "actual value is not equals to expected");
+    }
+
+   /**
+     * Test if number of pages matches max depth
+     * @return   void
+     */
+    public function testGetCrawledPagesMatchesDepth(): void
+    {
+        $expected = 2;
+        $actual = count($this->crawler->getCrawledPages());
+        $this->assertEquals($expected, $actual,  "actual value is not equals to expected");
+    }
+
+    /**
+     * Test that getCrawled holds PageParser types
+     * @return   void
+     */
+    public function testGetCrawledPagesIsPageParser(): void
+    {
+        $pages = $this->crawler->getCrawledPages();
+        $page = $pages[0];
+
+        $expected = PageParser::class;
+        $actual = $page;
+        $this->assertInstanceOf($expected, $actual);
+    }
+
+    
+//    /**
+//      * Tests setting max depth works
+//      * @return   void
+//      */
+//     public function testSpinWeb(): void
+//     {
+//        //test spinWeb
+//     }
 
 }

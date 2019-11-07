@@ -9,11 +9,9 @@ $app->get('/', function (Request $request, Response $response, array $args) use(
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-//posting to chat from post.phtml
+//posting to chat from index.phtml
 $app->post('/', function (Request $request, Response $response, array $args) use($app){
     $body = $request->getParsedBody();
-    $_SESSION['url_searched'] = $body['url'];
-
     $crawler = new Crawler($body['url']);
     $data = $crawler->getCrawledPages();
 
@@ -21,11 +19,9 @@ $app->post('/', function (Request $request, Response $response, array $args) use
 });
 
 //for adding crawl information to user
-$app->post('/ajaxCrawl', function (Request $request, Response $response, array $args) use($app){
-    //$data = $this->get('db')->table('eititan_feed')->get();
-    return $this->renderer->render($response, 'ajaxCrawl.php', ['data'=>$data]);
-});
-
+// $app->post('/ajaxCrawl', function (Request $request, Response $response, array $args) use($app){
+//     return $this->renderer->render($response, 'ajaxCrawl.php', ['data'=>$data]);
+// });
 
 
 //get from db when we add persistance

@@ -1,0 +1,10 @@
+
+<?php foreach($data as $d):?>
+    <tr>
+        <td> <?php echo $d->getUrl(); ?> </td>
+        <td> <?php echo $d->getTitle(); ?> </td>
+        <td> <?php echo $d->getNumOfLinks(); ?> </td>
+        <td> <?php echo $d->getStatusCode(); ?> </td>
+        <td> <?php echo $d->getBody(); ?> </td>
+    </tr>
+<?php endforeach;?>   

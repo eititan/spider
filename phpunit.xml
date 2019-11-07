@@ -29,7 +29,7 @@
 	</logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/</directory>
+            <directory suffix=".php">./crawler/</directory>
         </whitelist>
     </filter>
 </phpunit>
