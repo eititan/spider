@@ -6,16 +6,20 @@ use GuzzleHttp\Psr7\Response;
 
 class PageParser {
 
+    private $url;
     private $rawBody;
     private $title;
     private $text;
+    private $statusCode;
     private $links;
     private $dom;
     
-    public function __construct(Response $response) {
+    public function __construct(Response $response, String $url) {
         $this->dom = new \DOMDocument('1.0', 'UTF-8');
+        $this->url = $url;
         $this->rawBody = $response->getBody(true);
-        
+        $this->statusCode = $response->getStatusCode();
+
         $this->parseBodyForTitle();
         $this->parseBodyForText();
         $this->parseBodyForURLs();
@@ -64,15 +68,19 @@ class PageParser {
         return $this->body;
     }
 
-    private function getLinks(){
+    public function getLinks(){
         return $this->links;
+    }
+
+    public function getStatusCode(){
+        return $this->statusCode;
     }
 
     private function isValidURL(String $url){
         $url = filter_var($url, FILTER_SANITIZE_URL);
 
         if (filter_var($url, FILTER_VALIDATE_URL) !== false) {
-           //add to links array 
+            $this->links[] = $url;
         } 
     }
 

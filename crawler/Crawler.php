@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use App\Crawler\PageParser;
+use App\Crawler\CrawlerQueue;
 
 /**
  * Takes in the initial url and starts crawl
@@ -16,7 +17,7 @@ class Crawler {
     /**
      * @var String
      */
-    private $url;
+    private $startUrl;
 
     /**
      * set the delay between http requests
@@ -30,21 +31,50 @@ class Crawler {
      *
      * @var int
      */
-    private $maxDepth;
+    private $maxDepth = 1;
 
     /**
      * Array of PageParser objects
      *
-     * @var array
+     * @var array of PageParser
      */
     private $crawledPages;
 
-    public function __construct(String $crawlUrl) {
-        $this->url = $crawlUrl;
+    /**
+     * CrawlerQueue object
+     *
+     * @var CrawlerQueue
+     */
+    private $queue;
+
+    public function __construct(String $url) {
+        $this->queue = new CrawlerQueue();
+        $this->startUrl = $url;
+        $this->queue->enqueue($url);
         $this->spinWeb();
     }
 
-    /**
+    private function spinWeb(){
+        $client = new Client();
+
+        for ($i=0; $i < $this->maxDepth; $i++) { 
+            $url = $this->queue->dequeue();
+            $this->response = $client->get($url);
+            $page = new PageParser($this->response, $url);
+            $this->crawledPages[] = $page;
+
+            $links = $page->getLinks();
+            foreach($links as $link){
+                $this->queue->enqueue($link);
+            }
+
+        }
+
+        //print_r($this->crawledPages);
+        
+    }
+
+      /**
      * @param int $delay The delay in milliseconds.
      *
      * @return int
@@ -59,11 +89,9 @@ class Crawler {
         return $this->delayBetweenRequests;
     }
 
-    private function spinWeb(){
-        $client = new Client();
-        $this->response = $client->get($this->url);
-        $page = new PageParser($this->response);
-
+    private function getCrawledPages()
+    {
+        return $this->crawledPages;
     }
     
 }

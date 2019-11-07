@@ -20,14 +20,16 @@ use PHPUnit\Framework\TestCase;
 class PageParserTest extends TestCase
 {
     private $parser;
+    private $url;
     /**
      * Set up data needed for every unit-test
      */
     public function setUp(): void
     {
+        $this->url = "https://google.com";
         $client = new Client();
-        $this->response = $client->get("https://google.com");
-        $this->parser = new PageParser($this->response);
+        $this->response = $client->get($this->url);
+        $this->parser = new PageParser($this->response,  $this->url);
     }
 
     /**
