@@ -3,17 +3,20 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+
 /**
- * Example model for table
+ * Model for spider table in db
  */
-class Crawler extends Model {
+class CrawlerModel extends Model {
  
- 
-    protected $table = '';
+    protected $table = 'spider';
     public $timestamps = false;
     protected $fillable = [
         'url',
         'title',
-        'date_accessed',
+        'num_of_links',
+        'status_code',
+        'body',
+        'crawled_on',
     ];
 }

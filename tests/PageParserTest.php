@@ -141,11 +141,9 @@ class PageParserTest extends TestCase
      * 
      * @return   void
      */
-    public function testGetBody(): void
+    public function testGetLinksGreaterThanOne(): void
     {
         $this->assertGreaterThan(1, count($this->parser->getLinks()));
     }
-
-
 
 }

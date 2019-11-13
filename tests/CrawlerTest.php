@@ -45,8 +45,8 @@ class CrawlerTest extends TestCase
      */
     public function testGetMaxDepth(): void
     {
-        //2 is default min
-        $expected = 2;
+        //5 is default min
+        $expected = 5;
         $actual = $this->crawler->getMaxDepth();
         $this->assertEquals($expected, $actual,  "actual value is not equals to expected");
     }
@@ -69,7 +69,7 @@ class CrawlerTest extends TestCase
      */
     public function testGetCrawledPagesMatchesDepth(): void
     {
-        $expected = 2;
+        $expected = 5;
         $actual = count($this->crawler->getCrawledPages());
         $this->assertEquals($expected, $actual,  "actual value is not equals to expected");
     }

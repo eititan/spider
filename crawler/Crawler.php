@@ -19,7 +19,7 @@ class Crawler {
      *
      * @var int
      */
-    private $maxDepth = 2;
+    private $maxDepth = 5;
 
     /**
      * Array of PageParser objects

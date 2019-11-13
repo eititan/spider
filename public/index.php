@@ -13,8 +13,6 @@ if (PHP_SAPI == 'cli-server') {
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
-//TODO: intialize session crawling
-//$_SESSION["crawling"] = false;
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
@@ -31,12 +29,11 @@ require __DIR__ . '/../crawler/Crawler.php';
 require __DIR__ . '/../crawler/CrawlerQueue.php';
 require __DIR__ . '/../crawler/PageParser.php';
 
-
 //include models
-//require __DIR__ . '/../models/Posts.php';
+require __DIR__ . '/../models/CrawlerModel.php';
 
 //initialize database
-//$app->getContainer()->get('db');
+$app->getContainer()->get('db');
 
 // Run app
 try {

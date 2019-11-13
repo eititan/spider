@@ -55,6 +55,13 @@ class PageParser {
     private $numLinks;
 
     /**
+     * Number of characters desired in the body
+     *
+     * @var int
+     */
+    private $bodyLength = 512;
+
+    /**
      * DOMDocument object for extracting info from html body
      *
      * @var DOMDocument
@@ -84,7 +91,7 @@ class PageParser {
     public function parseBodyForText(Response $response){
         $this->dom->loadHTML($response->getBody());
         $tags = $this->dom->getElementsByTagName("body");
-        $this->text = substr($tags->item(0)->textContent, 0, 256);
+        $this->text = substr($tags->item(0)->textContent, 0, $this->bodyLength);
     }
 
     public function parseBodyForURLs(Response $response){
