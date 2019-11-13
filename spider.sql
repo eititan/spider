@@ -1,0 +1,10 @@
+-- CREATE TABLE `spider` (
+-- 	`id` INT NOT NULL AUTO_INCREMENT,
+-- 	`url` TEXT,
+-- 	`title` TEXT,
+-- 	`num_of_links` INT,
+-- 	`status_code` INT,
+-- 	`body` TEXT(2048),
+-- 	`crawled_on` DATE,
+-- 	PRIMARY KEY (`id`)
+-- );

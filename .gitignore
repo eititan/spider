@@ -8,7 +8,6 @@
 /vendor/*
 /wpcs/*
 /src/settings.php
-/spider.sql
 /logs/*
 
 ### PhpStorm+all ###
